@@ -1,0 +1,687 @@
+:root {
+    --primary-color: #03225c;
+    --secondary-color: #8185f0;
+    --accent-color: #ab0510;
+    --text-color: black;
+    --bg-color: white;
+    --accent-color-darker: #960e0b;
+}
+
+
+body {
+    background-color: #fffaf0;  /* Light cream background */
+    color: var(--text-color);  /* Uses CSS variable for text color */
+    margin: 0;  /* Removes default margin */
+    font-family: Arial, sans-serif;  /* Sets the font family */
+    overflow-y: scroll;  /* Enables vertical scrolling */
+    scrollbar-width: none;  /* Hides scrollbar for Firefox */
+    -ms-overflow-style: none;  /* Hides scrollbar for IE and Edge */
+}
+
+/* Hides scrollbars in Webkit-based browsers like Chrome and Safari */
+body::-webkit-scrollbar {
+    width: 0;  /* Hide scrollbar track */
+    height: 0; /* Hide scrollbar itself if horizontal scroll is enabled */
+    display: none;  /* Ensures scrollbar is not displayed */
+}
+
+
+h1, h3{
+    color: #C40C0C;
+}
+
+                        /*-------------------------Styles for the header*-----------------------*/
+
+.navbar-toggler {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1050; /* Ensure it's above other content */
+    border-color: var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    transition: background-color 0.3s ease-in-out;
+    padding: 0.5rem 1rem; /* Slightly larger padding for better touch target */
+}
+
+.navbar-toggler:hover {
+    background-color: var(--secondary-color);
+}
+
+#sidebar {
+    position: fixed;
+    top: 50px; /* Below the navbar toggler */
+    left: 0;
+    width: 250px; /* Consistent sidebar width */
+    height: calc(100vh - 50px); /* Full vertical height minus top offset */
+    background: var(--accent-color); /* Primary accent color */
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%); /* Initially hidden to the left */
+    z-index: 1040; /* Ensures sidebar is above most content but below modal overlays */
+    overflow-y: auto; /* Scrollable if content exceeds screen height */
+    box-shadow: 4px 0 6px rgba(0,0,0,0.1); /* Shadow for depth */
+    padding: 1rem; /* Padding around the content within the sidebar */
+    background-color: #fffaf0 !important;
+}
+
+#sidebar a {
+    text-decoration: none; /* Removes underlines from links only within the sidebar */
+    font-size: 1rem;
+}
+
+#sidebar p:hover {
+    padding: calc(0.5rem - 2px);
+    box-sizing: border-box;
+    background-color: var(--accent-color-darker) !important;
+    color: var(--bg-color)!important;
+}
+
+
+#sidebar a:hover {
+    color: var(--accent-color-darker) !important; /* Changes text color on hover */
+    border-bottom: 4px solid var(--accent-color);
+}
+
+
+
+/* Toggle sidebar visibility */
+#sidebar.show {
+    transform: translateX(0); /* Bring into view when toggled */
+}
+
+/* Styling for links within the sidebar */
+#sidebar .nav-link, #sidebar .dropdown-toggle {
+    color: var(--text-color); /* High contrast for readability */
+    text-decoration: none; /* Cleaner look without underlines */
+    padding: 0.5rem 1rem; /* Adequate padding for touch targets */
+    transition: background-color 0.3s ease; /* Smooth transition for interactive states */
+}
+
+/* Hover and focus styles to improve interactivity */
+#sidebar .nav-link:hover, #sidebar .nav-link:focus,
+#sidebar .dropdown-toggle:hover, #sidebar .dropdown-toggle:focus {
+    background-color: var(--secondary-color); /* Slightly darker for hover state */
+    color: var(--bg-color); /* Light text on dark background */
+}
+
+/* Active state styling for current selection */
+#sidebar .nav-link.active {
+    font-weight: bold; /* Distinguish the active link */
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle indication of active state */
+}
+
+/* Styles for dropdown menus to differentiate from main links */
+#sidebar .collapse {
+    background: var(--bg-color); /* Light background for dropdowns */
+    border-top: 1px solid rgba(0, 0, 0, 0.125); /* Separator for clarity */
+}
+
+#sidebar .btn-toggle-nav a {
+    display: block; /* Ensure these are block level for full-width interaction */
+    margin-top: 0.5rem; /* Space between dropdown items */
+    padding-left: 20px; /* Indent dropdown items for hierarchy */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    #sidebar {
+        width: 200px; /* Smaller sidebar for smaller screens */
+        top: 40px; /* Adjust top position to be lower than the toggler on smaller screens */
+        height: calc(100vh - 40px); /* Adjust height accordingly */
+    }
+}
+
+@media (max-width: 576px) {
+    #sidebar {
+        width: 180px; /* Tailor the sidebar for very small screens */
+        top: 35px; /* Even lower for mobile screens */
+        height: calc(100vh - 35px); /* Adjust height accordingly */
+    }
+
+    .navbar-toggler {
+        top: 5px;
+        left: 5px;
+        font-size: 0.8em; /* Adjust the font size for smaller viewports */
+        padding: 0.4rem 0.8rem; /* Adjust padding to make it proportional */
+    }
+}
+
+/* Base styles for dropdowns and list items */
+.list-group-item {
+    cursor: pointer; /* Indicates clickable items */
+    transition: background-color 0.3s ease;
+}
+
+.list-group-submenu .list-group-item {
+    padding-left: 30px; /* Indents submenu items for clarity */
+}
+
+.list-group-item.dropdown-toggle::after {
+    content: '';
+    float: right;
+    border: solid var(--text-color);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg); /* Arrow pointing right */
+    transition: transform 0.3s ease;
+}
+
+.list-group-item.dropdown-toggle.collapsed::after {
+    transform: rotate(-135deg); /* Arrow rotates to indicate expansion */
+}
+
+/* General hover effects for interaction feedback */
+.list-group-item:hover, .list-group-item:focus {
+    background-color: var(--secondary-color);
+    color: var(--bg-color);
+}
+
+.list-group-item:active {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+/* Media Queries for mobile devices */
+@media (max-width: 576px) {
+    .navbar-toggler {
+        padding: 0.3rem 0.6rem; /* Smaller padding for toggler */
+        font-size: 0.8rem; /* Smaller font size for device constraints */
+    }
+
+    #sidebar {
+        width: 100%; /* Sidebar takes full width on smaller screens */
+        top: 45px; /* Adjust top position to not overlap with the toggler */
+        height: calc(100vh - 45px); /* Adjust height to fill remaining vertical space */
+    }
+
+    .list-group-item {
+        padding: 10px 15px; /* More padding for easier tapping on touch devices */
+        font-size: 0.9rem; /* Slightly larger font for readability */
+    }
+
+    .list-group-submenu .list-group-item {
+        padding-left: 20px; /* Slightly less indentation for submenu items */
+    }
+}
+
+                            /*------------styles for the hero section-----------------------*/
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding: 20px; /* Ensure text does not touch the edges */
+}
+
+.hero-content h1 {
+    font-size: 5rem; /* Large size for visibility */
+    font-weight: bold; /* Bold for emphasis */
+    margin-bottom: 0.5rem; /* Space between h1 and the CTA */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6); /* Text shadow for better readability against backgrounds */
+    font-family: "Anton", sans-serif;
+    font-style: normal;
+    color:white;
+}
+
+.join-btn {
+    font-size: 1.2rem; /* Adequate size for mobile and desktop */
+    padding: 10px 20px; /* Padding for a better clickable area */
+    background-color: var(--accent-color); /* Using the accent color for visibility */
+    color: white; /* Contrast text color */
+    border: none; /* No border for a clean look */
+    border-radius: 5px; /* Rounded corners for a modern look */
+    text-decoration: none; /* Remove underline from links */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6)
+}
+
+.join-btn:hover {
+    background-color: var( --accent-color-darker); /* Slightly darken on hover for feedback */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+}
+
+.hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+    transform: scale(1.0);
+}
+
+.hero-image.active {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+/* Media Queries for adjustments on smaller screens */
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 1.8rem; /* Smaller font size for small screens */
+    }
+
+    .join-btn {
+        font-size: 1rem; /* Smaller font size for the button */
+        padding: 8px 16px; /* Slightly smaller padding */
+    }
+    .hero-image {
+        transform: scale(1); /* Ensure base scale is correct */
+    }
+
+    .hero-image.active {
+        transform: scale(1.1); /* Slightly less intense zoom on small devices */
+    }
+}
+
+                            /*-----------------styles for the main section------------------ */
+.main-section{
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    height: auto;
+    width: 100vw;
+}
+
+                            /*----------------styles for the service section-----------------*/
+
+.services{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2rem auto;
+}
+.schedule-1, .schedule-2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.schedule-1 h1{
+    margin: 2.5rem auto;
+}
+
+.schedule-1 h1, .schedule-2 h3, .schedule-1 h3{
+    text-align: center;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.schedule-1 p, .schedule-2 p{
+    fonst-family: "Anton", sans-serif;
+    font-weight: normal;
+}
+.warning{
+    font-weight: bold;
+}
+
+                        /*-----------who we are section-----------------*/
+.about-us-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5rem auto;
+}
+                            /*------------who we are --------------*/
+.who-we-are{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.who-we-are > div:nth-child(1),
+.who-we-are > div:nth-child(2),
+.who-we-are > div:nth-child(3),
+.who-we-are > div:nth-child(4),
+.who-we-are > div:nth-child(5),
+.who-we-are > div:nth-child(6),
+.who-we-are > div:nth-child(7) {
+    display: flex;
+    margin: 3rem auto;
+}
+
+
+/*first div*/
+.who-we-are div:nth-child(1){
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.who-we-are > div:nth-child(1) p{
+    fonst-family: "Anton", sans-serif;
+    font-weight: normal;
+}
+.who-we-are > div:nth-child(1) h3{
+    font-weight: bold;
+    font-style: normal;
+    margin: 1rem auto;
+}
+
+/*second div*/
+.who-we-are > div:nth-child(2) {
+    align-items: flex-start; /* Aligns children at the start of the cross axis */
+    justify-content: space-between; /* Distributes space between children */
+    gap: 20px; /* Optional: Adds space between the flex items */
+}
+
+.who-we-are > div:nth-child(2) > div {
+    flex: 1;  /* Allows the text paragraph to grow and take available space */
+}
+
+.who-we-are > div:nth-child(2) > div:first-child {
+    display: flex;
+    flex-direction: column; /* Stacks <h3> and <div> vertically */
+}
+
+.who-we-are > div:nth-child(2) > div:first-child h3{
+    font-weight: bold;
+    font-style: normal;
+    margin: 1rem 0;
+}
+
+
+.who-we-are > div:nth-child(2) > div:last-child img {
+    width: 100%; /* Ensures the image fills its container */
+    height: auto; /* Maintains the aspect ratio */
+}
+
+/*third div*/
+.who-we-are > div:nth-child(3) {
+    flex-direction: row;
+    justify-content: space-around;
+    column-gap: 20px;
+}
+
+.who-we-are > div:nth-child(3) > div{
+    flex: 1;
+}
+
+/*fourth div*/
+.who-we-are > div:nth-child(4) {
+    flex-direction: row; /* Aligns children in a row */
+    justify-content: space-around; /* This will distribute spacing around the items evenly */
+    align-items: start; /* Aligns items to the start of the cross axis */
+    gap: 20px; /* Sets gap between each flex item */
+}
+
+.who-we-are > div:nth-child(4) > div {
+    flex: 1; /* Each div takes equal space */
+    display: flex; /* If you want inner content also to be flex */
+    flex-direction: column; /* Stacks inner content vertically */
+    padding: 20px; /* Adds padding within each 'column' */
+}
+
+.who-we-are > div:nth-child(4) > div > h3 {
+    font-weight: bold;
+    font-style: normal;
+    margin: 1rem 0; /* Adjusted margin for the heading */
+}
+
+/*fifth div*/
+.who-we-are > div:nth-child(5) {
+    margin-left: 30px;
+}
+.who-we-are > div:nth-child(5) > h3 {
+    font-weight: bold;
+    font-style: normal;
+    margin: 1rem 0; /* Adjusted margin for the heading */
+}
+
+@media (max-width: 576px) {
+    .who-we-are {
+        flex-direction: column;
+        align-items: center; /* Center alignment might be more visually appealing on mobile */
+        justify-content: flex-start;
+    }
+
+    .who-we-are > div {
+        display: flex;
+        flex-direction: column; /* Stack children vertically */
+        align-items: flex-start; /* Align items to the start */
+        margin: 1rem auto; /* Reduce margin to better fit smaller screens */
+        padding: 0 15px; /* Add padding for better text readability */
+        width: 100%; /* Full width to utilize space efficiently */
+    }
+
+    .who-we-are > div > div {
+        flex-direction: column;
+        margin-bottom: 1rem; /* Add space between stacked items */
+    }
+
+    .who-we-are > div:nth-child(2),
+    .who-we-are > div:nth-child(4) {
+        justify-content: flex-start;
+    }
+
+    .who-we-are > div:nth-child(2) > div,
+    .who-we-are > div:nth-child(4) > div {
+        flex: none; /* Override previous flex settings */
+        width: 100%; /* Full width to utilize space efficiently */
+    }
+
+    .who-we-are > div:nth-child(3),
+    .who-we-are > div:nth-child(4) {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: flex-start;
+        gap: 10px; /* Smaller gap for a compact layout */
+    }
+
+    .who-we-are > div:nth-child(2) > div:last-child img,
+    .who-we-are > div:nth-child(4) > div:last-child img {
+        width: 100%; /* Ensure images resize properly */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .who-we-are > div:nth-child(5) {
+        margin-left: 0; /* Remove left margin for alignment */
+        padding-left: 15px; /* Consistent padding for readability */
+    }
+
+    .who-we-are > div:nth-child(5) > h3,
+    .who-we-are > div:nth-child(4) > div > h3,
+    .who-we-are > div:nth-child(1) > h3 {
+        font-size: 1.5rem; /* Adjust font size for mobile readability */
+    }
+}
+
+/*leadership section*/
+.leadership > div:nth-child(1) h3{
+    font-weight: bold;
+    font-style: normal;
+    margin: 1rem 0;
+}
+
+.leadership > div:nth-child(2) {
+    margin-top: 3rem;
+}.leadership > div:nth-child(2) a {
+    margin-top: 200px;
+    margin-right: 350px;
+    background-color: var(--accent-color-darker);
+    border: 2px solid var(--accent-color-darker);
+    color : white;
+}
+
+ #contact-us{
+     width: 150px ;
+ }
+
+ .btn-color{
+     background-color: var(--accent-color);
+     border: 2px solid var(--accent-color);
+ }
+
+ .btn-color:hover{
+     background-color: var( --accent-color-darker); /* Slightly darken on hover for feedback */
+     box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+ }
+
+                        /*------------------------- contact us -----------------*/
+.contact-us {
+    background-color: #fffaf0; /* Light background to make the section stand out */
+    border-radius: 8px; /* Soft rounded corners for a modern look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px; /* Padding around the content */
+    margin: 20px 0; /* Vertical spacing */
+}
+
+.contact-us h3 {
+    color: #333; /* Dark color for headings for better contrast */
+    font-size: 24px; /* Larger font size for visibility */
+    margin-bottom: 15px; /* Spacing below the heading */
+}
+
+.contact-us p {
+    color: #666; /* Lighter text color for paragraphs */
+    font-size: 16px; /* Adequate font size for readability */
+    line-height: 1.5; /* Line height for better text flow */
+    margin-bottom: 10px; /* Spacing below each paragraph */
+}
+
+.contact-us i {
+    color: #007bff; /* Accent color for icons */
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.contact-us a.btn-color {
+    background-color: var(--accent-color-darker)!important; /* Background color for the button */
+    color: #ffffff; /* Text color for the button */
+    border-color: var(--accent-color-darker)!important; /* Border color slightly darker than the background */
+}
+
+.contact-us a.btn-color:hover {
+    background-color: #0056b3; /* Darker background on hover */
+    border-color: #004080; /* Darker border on hover */
+}
+
+.contact-us a.btn-color i {
+    margin-right: 5px; /* Consistent spacing between icon and text */
+}
+
+#contact-us .btn-color {
+    background-color: #4CAF50; /* Green background for the button */
+    color: white; /* White text color for readability */
+    border: 2px solid #3E8E41; /* Darker green border for depth */
+    padding: 10px 20px; /* Adequate padding for a larger, more clickable area */
+    text-decoration: none; /* Remove underline from link */
+    font-size: 16px; /* Larger font size for visibility */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+#contact-us .btn-color:hover, #contact-us .btn-color:focus {
+    background-color: #3E8E41; /* Darker green on hover for visual feedback */
+    color: #ffffff; /* Maintain white text color on hover */
+    border-color: #2C662D; /* Even darker border color on hover */
+}
+
+
+                /*------------------styles for the footer-----------------*/
+
+footer {
+    background-color: #343a40; /* Dark background for the footer */
+}
+
+footer a {
+    color: white; /* Sets icon color to white */
+    font-size: 24px; /* Sets a comfortable size for the icons */
+    padding: 10px; /* Adds padding around the icon */
+    border-radius: 50%; /* Makes the background circle */
+    transition: color 0.3s, background-color 0.3s; /* Smooth transition for color and background */
+    display: inline-block; /* Ensures padding and border-radius are applied correctly */
+}
+
+footer i {
+    background-color: var(--accent-color-darker); /* Darker background color for icons */
+    border-radius: 50%; /* Ensures the background is perfectly circular */
+    padding: 10px; /* Additional padding to increase clickable area */
+}
+
+footer a:hover {
+    color: #ccc; /* Lighter shade when hovered */
+    background-color: #5c0d07; /* Slightly lighter shade of the accent color on hover */
+}
+
+
+
+                /*-------------------Animations-------------------------*/
+/* Base Styling for Animated Containers */
+.animated-container {
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+    padding: 20px;
+    width: 100%;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        background-position: -100% 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+.animated-container.visible {
+    animation: slideInLeft 1.5s forwards;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Updated styles for child elements */
+.animated-container .animated-child {
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+    transition-delay: 1.5s;
+}
+
+.animated-container.visible .animated-child {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.animated-container .animated-child.invisible {
+    transform: translateX(-100%); /* Resets to start position */
+    opacity: 0; /* Ensures it starts from invisible */
+    transition: none; /* No transition when resetting to avoid visible sliding back */
+}
+
+.animated-container.visible .animated-child {
+    transform: translateX(0); /* Slide in from the left */
+    opacity: 1; /* Fade in */
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out; /* Smooth transition */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
