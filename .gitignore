@@ -80,3 +80,4 @@
 
  # Optional vscode directory
  .vscode/
+ package-lock.json
